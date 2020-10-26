@@ -2,16 +2,16 @@ class UsersController < ApplicationController
     before_action :set_user, only: [:show]
     
     def show
-        render :json => @user
+        json_response(@user)
     end
 
     def index
-        render :json => User.all
+        json_response(User.all)
     end
 
     def create
         @user = User.create!(user_params)
-        render :json => @user
+        json_response(@user, :created)
     end
 
     # a route to login as a user using username
@@ -28,5 +28,8 @@ class UsersController < ApplicationController
     def set_user
         # whitelist params
         @user = User.where(username: params[:id])
+        if @user.empty? 
+            raise ActiveRecord::RecordNotFound.new "Couldn't find User"
+        end
     end
 end
