@@ -1,0 +1,2 @@
+class ChannelMessagesController < ApplicationController
+end
