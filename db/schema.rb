@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_193149) do
+ActiveRecord::Schema.define(version: 2020_10_27_010246) do
 
   create_table "channel_messages", force: :cascade do |t|
     t.integer "channel_id", null: false
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2020_10_26_193149) do
   end
 
   create_table "channels", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_channels_on_name", unique: true

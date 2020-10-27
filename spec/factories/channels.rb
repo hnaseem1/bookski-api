@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :channel do
-    name { Faker::StarWars.character }
+    name { Faker::Name.unique.name }
   end
 end
