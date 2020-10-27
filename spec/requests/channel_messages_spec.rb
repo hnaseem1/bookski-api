@@ -35,7 +35,7 @@ RSpec.describe 'Channel channel_messages API' do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find channel/)
+        expect(response.body).to match(/Couldn't find Channel/)
       end
     end
   end
@@ -62,14 +62,14 @@ RSpec.describe 'Channel channel_messages API' do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find message/)
+        expect(response.body).to match(/Couldn't find ChannelMessage/)
       end
     end
   end
 
   # Test suite for PUT /channels/:channel_id/channel_messages
   describe 'POST /channels/:channel_id/channel_messages' do
-    let(:valid_attributes) { { name: 'Visit Narnia', done: false } }
+    let(:valid_attributes) { {  message: 'Visit Narnia', user_id: user.id} }
 
     context 'when request attributes are valid' do
       before { post "/channels/#{channel_id}/channel_messages", params: valid_attributes }
@@ -87,14 +87,14 @@ RSpec.describe 'Channel channel_messages API' do
       end
 
       it 'returns a failure message' do
-        expect(response.body).to match(/Validation failed: Name can't be blank/)
+        expect(response.body).to match(/Validation failed: User must exist/)
       end
     end
   end
 
   # Test suite for PUT /channels/:channel_id/channel_messages/:id
   describe 'PUT /channels/:channel_id/channel_messages/:id' do
-    let(:valid_attributes) { { name: 'Mozart' } }
+    let(:valid_attributes) {{  message: 'Visit Death Star', user_id: user.id }}
 
     before { put "/channels/#{channel_id}/channel_messages/#{id}", params: valid_attributes }
 
@@ -104,8 +104,8 @@ RSpec.describe 'Channel channel_messages API' do
       end
 
       it 'updates the message' do
-        updated_message = message.find(id)
-        expect(updated_message.name).to match(/Mozart/)
+        updated_message = ChannelMessage.find(id)
+        expect(updated_message.message).to match(/Visit Death Star/)
       end
     end
 
@@ -117,7 +117,7 @@ RSpec.describe 'Channel channel_messages API' do
       end
 
       it 'returns a not found message' do
-        expect(response.body).to match(/Couldn't find message/)
+        expect(response.body).to match(/Couldn't find ChannelMessage/)
       end
     end
   end
